@@ -1,0 +1,16 @@
+---
+- name: Setup Docker Compose
+  hosts: "{{ target | default('no_host') }}"
+  become: yes
+  tasks:
+    - name: Install Docker Compose
+      shell: |
+        curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        chmod a+x /usr/local/bin/docker-compose
+
+    - name: Install "haveged" to prevent "docker-compose" from hanging
+      # Source: https://github.com/docker/compose/issues/6678#issuecomment-494398740
+      apt:
+        name: haveged
+        state: latest
+        update_cache: true

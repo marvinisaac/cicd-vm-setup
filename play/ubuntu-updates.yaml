@@ -1,0 +1,16 @@
+---
+- name: Get and install Ubuntu updates
+  hosts: "{{ target | default('no_host') }}"
+  become: yes
+  tasks:
+    - name: Get updates
+      apt:
+        update_cache: yes
+
+    - name: Install updates
+      apt:
+        update_cache: yes
+        upgrade: yes
+      async: 3600
+      poll: 30
+      register: apt_sleeper

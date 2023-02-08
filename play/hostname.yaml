@@ -1,0 +1,8 @@
+---
+- name: Change hostname
+  hosts: "{{ target | default('no_host') }}"
+  become: yes
+  tasks:
+    - name: Change hostname
+      ansible.builtin.hostname:
+        name: "cicd"

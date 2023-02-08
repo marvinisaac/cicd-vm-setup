@@ -1,0 +1,8 @@
+network:
+  version: 2
+  ethernets:
+    fake-interface:
+      addresses: [fake-ip/24]
+      gateway4: fake-gateway
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]

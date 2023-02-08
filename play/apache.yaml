@@ -1,0 +1,10 @@
+---
+- name: Remove Apache
+  hosts: "{{ target | default('no_host') }}"
+  become: yes
+  tasks:
+  - name: Remove Apache
+    apt:
+      name: apache2
+      state: absent
+      autoremove: yes

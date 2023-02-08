@@ -1,0 +1,7 @@
+- import_playbook: "./play/hostname.yaml"
+- import_playbook: "./play/disk.yaml"
+- import_playbook: "./play/ip-address.yaml"
+- import_playbook: "./play/ubuntu-updates.yaml"
+- import_playbook: "./play/docker.yaml"
+- import_playbook: "./play/docker-compose.yaml"
+- import_playbook: "./play/apache.yaml"

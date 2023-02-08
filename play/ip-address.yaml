@@ -1,0 +1,30 @@
+---
+- name: Set static IP
+  hosts: "{{ target | default('no_host') }}"
+  become: yes
+  tasks:
+    - name: Copy template config
+      ansible.builtin.copy:
+        src: template/static-ip-address.yaml
+        dest: /etc/netplan/00-installer-config.yaml
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Set interface
+      ansible.builtin.lineinfile:
+        path: /etc/netplan/00-installer-config.yaml
+        search_string: 'fake-interface'
+        line: "    {{ interface }}:"
+
+    - name: Set IP address
+      ansible.builtin.lineinfile:
+        path: /etc/netplan/00-installer-config.yaml
+        search_string: 'fake-ip'
+        line: "      addresses: [{{ ip }}/24]"
+
+    - name: Set gateway address
+      ansible.builtin.lineinfile:
+        path: /etc/netplan/00-installer-config.yaml
+        search_string: 'fake-gateway'
+        line: "      gateway4: {{ gateway }}"

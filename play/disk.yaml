@@ -1,0 +1,17 @@
+---
+- name: Extend disk to 100%
+  hosts: "{{ target | default('no_host') }}"
+  become: yes
+  tasks:
+    - name: Extend physical volume to 100%
+      community.general.lvg:
+        vg: ubuntu-vg
+        pvs: /dev/sda3
+        pvresize: yes
+
+    - name: Extend logical volume to 100%
+      community.general.lvol:
+        vg: ubuntu-vg
+        lv: ubuntu-lv
+        size: 100%PVS
+        resizefs: true
