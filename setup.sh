@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# @TODO
+# Skip key setup if key already exists
+
 # Try to decrypt key, exit on failure
 gpg ./key/key.gpg 2>/dev/null || {
     echo "> Wrong passphrase" && exit

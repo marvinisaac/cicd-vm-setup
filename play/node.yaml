@@ -1,0 +1,17 @@
+---
+- name: Setup a new dev machine
+  hosts: "{{ target | default('no_host') }}"
+  tasks:
+    - name: Install nvm
+      shell: >
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      args:
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+    
+    - name: Install Node LTS and Gitmoji CLI
+      ansible.builtin.shell: |
+        source {{ ansible_env.HOME}}/.nvm/nvm.sh && nvm install --lts
+        source ~/.profile
+        npm i -g gitmoji-cli
+      args:
+        executable: /bin/bash
